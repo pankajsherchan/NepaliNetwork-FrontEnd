@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t network-overflow -f .Dockerfile
+  - docker build -t network-overflow -f Dockerfile .
 
 script:
   - docker run network-overflow npm run test -- --coverage
