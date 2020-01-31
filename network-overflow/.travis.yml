@@ -1,11 +1,10 @@
-sudo: required
-
 language: generic
-
+sudo: required
 services:
   - docker
 
 before_install:
-  - docker build -t network-overflow .
-# script:
-#   - docker run network-overflow npm run test -- --coverage
+  - docker build -t network-overflow -f .
+
+script:
+  - docker run -e CI=true network-overflow npm test -- --coverage
