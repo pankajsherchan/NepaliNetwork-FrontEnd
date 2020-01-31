@@ -17,3 +17,5 @@
 - TypeScript › Preferences: Import Module Specifier - set this to "relative" (ensures that all suggested imports are relative paths)
 
 - Editor: Format On Save - make sure box is checked ( Ensures that formatting from above extensions is applied whenever a file is saved)
+
+# Lets see
