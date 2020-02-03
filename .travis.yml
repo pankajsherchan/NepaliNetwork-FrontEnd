@@ -5,6 +5,5 @@ services:
 
 before_install:
   - docker build -t network-overflow -f ./network-overflow/Dockerfile ./network-overflow
-
-script:
-  - docker run -e CI=true network-overflow npm test -- --coverage
+# script:
+#   - docker run -e CI=true network-overflow npm test -- --coverage
