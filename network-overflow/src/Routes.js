@@ -5,6 +5,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
+import Main from './shared/layouts/main/Main';
 import Dashboard from './views/dashboard';
 import Events from './views/events';
 import Home from './views/home';
@@ -18,43 +19,47 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact>
+        <Route path='/' exact>
           <Home />
         </Route>
 
-        <Route path="/signup" exact>
+        <Route path='/main' exact>
+          <Main />
+        </Route>
+
+        <Route path='/signup' exact>
           <SignUp />
         </Route>
 
-        <Route path="/signin" exact>
+        <Route path='/signin' exact>
           <SignIn />
         </Route>
 
-        <Route path="/home" exact>
+        <Route path='/home' exact>
           <Home />
         </Route>
 
-        <Route path="/dashboard" exact>
+        <Route path='/dashboard' exact>
           <Dashboard />
         </Route>
 
-        <Route path="/events" exact>
+        <Route path='/events' exact>
           <Events />
         </Route>
 
-        <Route path="/jobs" exact>
+        <Route path='/jobs' exact>
           <Jobs />
         </Route>
 
-        <Route path="/roommates" exact>
+        <Route path='/roommates' exact>
           <Roommates />
         </Route>
 
-        <Route path="/playground" exact>
+        <Route path='/playground' exact>
           <Playground />
         </Route>
 
-        <Redirect to="/"></Redirect>
+        <Redirect to='/'></Redirect>
       </Switch>
     </Router>
   );

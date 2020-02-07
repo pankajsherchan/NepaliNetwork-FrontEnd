@@ -12,7 +12,8 @@ export default {
   primary: {
     contrastText: white,
     dark: colors.red[800],
-    main: colors.red[500],
+    // main: colors.red[500],
+    main: "#e53935",
     light: colors.red[100]
   },
   secondary: {
