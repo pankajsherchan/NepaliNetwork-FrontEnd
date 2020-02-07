@@ -61,6 +61,9 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     [theme.breakpoints.up('md')]: {
       width: 200
+    },
+    '&:hover': {
+      backgroundColor: 'rgba(0,0,0,0.2)'
     }
   },
   sectionDesktop: {
@@ -165,12 +168,13 @@ export const TopBar = props => {
     <div className={classes.grow}>
       <AppBar position='static' color='default'>
         <Toolbar>
-          {isMenuOpen ? (
+          {!shouldOpenSideBar ? (
             <IconButton
               edge='start'
               className={classes.menuButton}
               color='inherit'
               aria-label='open drawer'
+              onClick={onSideBarOpen}
             >
               <MenuIcon />
             </IconButton>
@@ -184,15 +188,18 @@ export const TopBar = props => {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder='Search…'
+              placeholder='Search Topics'
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput
               }}
               inputProps={{ 'aria-label': 'search' }}
+              color='primary'
             />
           </div>
           <div className={classes.grow} />
+
+          {/* MENU CONTROL DESKTOP VIEW */}
           <div className={classes.sectionDesktop}>
             <IconButton aria-label='show 4 new mails' color='inherit'>
               <Badge badgeContent={4} color='secondary'>
@@ -215,6 +222,8 @@ export const TopBar = props => {
               <AccountCircle />
             </IconButton>
           </div>
+
+          {/* MENU CONTROL MOBILE VIEW  */}
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label='show more'

@@ -1,8 +1,7 @@
 import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import clsx from 'clsx';
 import React, { useState } from 'react';
-import SideBar from '../components/sidebar';
-import TopBar from '../components/topbar/TopBar';
+import { SideBar, TopBar } from '../components';
 
 const useStyles = makeStyles(theme => ({
   root: {
