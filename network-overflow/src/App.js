@@ -4,7 +4,6 @@ import React from "react";
 import { Router } from "react-router-dom";
 import Routes from "./Routes";
 import theme from "./theme";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 const browserHistory = createBrowserHistory();
 
