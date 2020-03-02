@@ -1,9 +1,13 @@
-version: "3"
+version: '3'
 services:
   network-overflow:
-    build: .
+    build:
+      context: .
     ports:
-      - "3000:3000"
+      - '3000:3000'
+      - '9005:9005' # for firebase authentication
+    expose:
+      - 9005
     volumes:
       - /app/node_modules
       - .:/app

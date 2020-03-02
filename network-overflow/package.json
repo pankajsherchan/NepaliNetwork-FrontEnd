@@ -14,6 +14,7 @@
     "formik": "^2.1.4",
     "material-auto-rotating-carousel": "^3.0.2",
     "node-sass": "^4.13.1",
+    "firebase-tools": "^7.12.1",
     "react": "^16.12.0",
     "react-awesome-slider": "^4.0.1",
     "react-bootstrap": "^1.0.0-beta.16",
