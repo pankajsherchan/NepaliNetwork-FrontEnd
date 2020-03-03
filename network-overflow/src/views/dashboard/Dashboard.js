@@ -285,6 +285,7 @@ const Dashboard = () => {
       <MultiItemCarousel cardInfo={topRooms} />
     </div>
   );
+
 };
 
 export default Dashboard;
