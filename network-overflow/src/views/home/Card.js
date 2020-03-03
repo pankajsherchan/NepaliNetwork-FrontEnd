@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
+
     border: '3px solid #eeeeee',
     minWidth: 275,
     maxWidth: 345,
