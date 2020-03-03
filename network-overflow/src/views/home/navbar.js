@@ -56,15 +56,16 @@ export default function HomePageNavBar() {
     <React.Fragment>
       <div className={classes.root}>
         <div>
-          <img
+           <img
             style={{
               width: "200px",
               height: "100px",
               border: "none",
               marginLeft: "30px"
             }}
-            src={logo}
+            src={logo}       
           />
+          
         </div>
         <div style={{ alignSelf: "flex-end" }}>
           <ul className={classes.quickLinks}>

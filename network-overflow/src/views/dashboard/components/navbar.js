@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import logo from "./logoNetwork.png";
 import PersonIcon from "@material-ui/icons/Person";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
+
 const bigFont = {
   fontWeight: "500",
   width: "35px",
@@ -40,18 +42,34 @@ const useStyles = makeStyles(theme => ({
   },
   menuList: {
     marginLeft: 39,
-    marginRight: 30
+    marginRight: 30,
+    "&:hover": {
+      transform: "scale(1.2)"
+    },
+    transition: "all .2s ease-in-out",
+  },
+  linkStyle:{
+    color:'black',
+    textDecoration:'none',
+    "&:hover": {
+      textDecoration:'underline'
+    }
   }
 }));
+
+// function handleClick (link) {
+//   let history = useHistory();
+//   history.push(link);
+// }
 
 export default function HomePageNavBar() {
   const classes = useStyles();
   const [menu, addMenu] = useState([
-    { title: "Dashboard", link: "" },
-    { title: "Rooms", link: "" },
-    { title: "Jobs", link: "" },
-    { title: "Events", link: "" },
-    { title: "Saved Matches", link: "" }
+    { title: "Dashboard", link: "/dashboard" },
+    { title: "Rooms", link: "/roommates" },
+    { title: "Jobs", link: "/jobs" },
+    { title: "Events", link: "/events" },
+    { title: "Saved Matches", link: "/saved" }
   ]);
 
   return (
@@ -71,7 +89,7 @@ export default function HomePageNavBar() {
         <div style={{ alignSelf: "flex-end" }}>
           <ul className={classes.quickLinks}>
             {menu.map(m => (
-              <li className={classes.menuList}>{m.title}</li>
+              <li className={classes.menuList}><Link className={classes.linkStyle} to={m.link}>{m.title}</Link></li>
             ))}
           </ul>
         </div>

@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import SimpleDialog from '../../shared/components/dialog/SimpleDialog';
+import { useHistory } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -52,7 +53,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const SignIn = () => {
+const SignIn = (props) => {
+  let history = useHistory();
   const classes = useStyles();
 
   const [showDialog, setShowDialog] = useState(false);
@@ -118,7 +120,8 @@ const SignIn = () => {
           const token = 'Bearer ' + res.data.result.token;
           localStorage.setItem('token', token);
           context.setIsLoggedIn(true);
-          showDialogBox('Success', 'Logged in successfully');
+          //showDialogBox('Success', 'Logged in successfully');
+          history.push('/dashboard');
         })
         .catch(error => {});
     } catch (error) {
@@ -210,7 +213,7 @@ const SignIn = () => {
           </Button>
           <Grid container>
             <Grid item xs>
-              <Link href='#' variant='body2'>
+              <Link to='#' variant='body2'>
                 Forgot password?
               </Link>
             </Grid>

@@ -62,7 +62,7 @@ const Home = () => {
       </div>
       <Button variant="contained" color="primary">
         Initial Preview By Uncaught Error
-      </Button>
+      </Button> 
       <StickyFooter />
     </div>
   );
