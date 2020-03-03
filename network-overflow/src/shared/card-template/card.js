@@ -7,7 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import image1 from '../../views/home/event.jpg';
+//import image1 from '../../views/home/event.jpg';
 
 const useStyles = makeStyles({
   root: {
@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function MediaCard() {
+export default function MediaCard(props) {
   const classes = useStyles();
 
   return (
@@ -26,16 +26,28 @@ export default function MediaCard() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={image1}
-          title='Contemplative Reptile'
+          image={props.event.image}
+          title={props.event.title}
         />
         <CardContent>
-          <Typography gutterBottom variant='h5' component='h2'>
-            Lizard
+          <Typography
+            gutterBottom
+            color='textSecondary'
+            variant='h5'
+            component='h2'
+          >
+            {props.event.title}
+          </Typography>
+          <Typography
+            gutterBottom
+            color='textSecondary'
+            variant='body2'
+            component='p'
+          >
+            -{props.event.venue}
           </Typography>
           <Typography variant='body2' color='textSecondary' component='p'>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {props.event.description}
           </Typography>
         </CardContent>
       </CardActionArea>
