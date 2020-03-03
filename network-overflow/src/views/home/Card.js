@@ -12,7 +12,6 @@ import job from "./job.jpg";
 const useStyles = makeStyles({
   root: {
     border: "3px solid #eeeeee",
-    minWidth: 275,
     maxWidth: 345,
     color: "gray",
     marginLeft: 60,
