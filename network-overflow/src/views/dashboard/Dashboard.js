@@ -270,22 +270,33 @@ const useStyles = makeStyles({
 const Dashboard = () => {
   const classes = useStyles();
   return (
-    <div style={{ width: "100%", textAlign: "center" }}>
+    <div style={{ width: "100%", textAlign: "left" }}>
       <HomePageNavbar />
-      <span className={classes.header}> Based on your Profile</span>
-      <h3 className={classes.header}>Rooms</h3>
-      <MultiItemCarousel cardInfo={profileBasedRooms} />
-      <h3 className={classes.header}>Events</h3>
-      <MultiItemCarousel cardInfo={profileBasedEvents} />
-      <span className={classes.header}> Most Saved Topics </span>
-      <h3 className={classes.header}>Rooms</h3>
-      <MultiItemCarousel cardInfo={topEvents} />
+      <div style={{ textAlign: "center" }}>
+        <span className={classes.header}>Based on your Profile</span>
+      </div>
+      <div style={{ marginLeft: "70px" }}>
+        <h3 className={classes.header}>Rooms</h3>
+      </div>
 
-      <h3 className={classes.header}>Events</h3>
+      <MultiItemCarousel cardInfo={profileBasedRooms} />
+      <div style={{ marginLeft: "70px" }}>
+        <h3 className={classes.header}>Events</h3>
+      </div>
+      <MultiItemCarousel cardInfo={profileBasedEvents} />
+      <div style={{ textAlign: "center" }}>
+        <span className={classes.header}>Most Saved Topics</span>
+      </div>
+      <div style={{ marginLeft: "70px" }}>
+        <h3 className={classes.header}>Top Rooms</h3>
+      </div>
+      <MultiItemCarousel cardInfo={topEvents} />
+      <div style={{ marginLeft: "70px" }}>
+        <h3 className={classes.header}>Top Events</h3>
+      </div>
       <MultiItemCarousel cardInfo={topRooms} />
     </div>
   );
-
 };
 
 export default Dashboard;

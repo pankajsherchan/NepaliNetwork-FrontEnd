@@ -50,7 +50,6 @@ const MultiItemCarousel = props => {
         keyBoardControl={true}
         transitionDuration={500}
       >
-        {" "}
         {props.cardInfo.map(c => (
           <div>
             <div className={classes.cardContainer}>
