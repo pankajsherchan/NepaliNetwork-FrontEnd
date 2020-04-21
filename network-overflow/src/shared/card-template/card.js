@@ -11,11 +11,11 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345
+    maxWidth: 345,
   },
   media: {
-    height: 140
-  }
+    height: 140,
+  },
 });
 
 export default function MediaCard(props) {
@@ -28,6 +28,8 @@ export default function MediaCard(props) {
           className={classes.media}
           image={props.event.image}
           title={props.event.title}
+          square
+          imageUrl={props.event.image}
         />
         <CardContent>
           <Typography

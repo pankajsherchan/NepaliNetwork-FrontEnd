@@ -104,7 +104,7 @@ const SignUp = () => {
       };
 
       await axios
-        .post(`http://localhost:5000/api/users/signUp`, user, config)
+        .post(`${process.env.REACT_APP_API}/api/users/signUp`, user, config)
         .then(res => {
           console.log('res: ', res);
           if (res.data.message) {

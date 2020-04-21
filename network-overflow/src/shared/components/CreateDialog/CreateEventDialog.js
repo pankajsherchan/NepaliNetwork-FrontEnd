@@ -7,23 +7,24 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   textBox: {
     color: 'black',
     height: 60,
-    fontSize: '1.5em'
+    fontSize: '1.5em',
   },
   timeBox: {
     color: 'black',
     height: 60,
-    marginTop: '2px'
+    marginTop: '2px',
   },
   dialogHeader: {
     fontWeight: 'bold',
     fontSize: '24px',
-    color: 'black'
-  }
+    color: 'black',
+  },
 }));
 
 export default function FormDialog() {
@@ -36,6 +37,35 @@ export default function FormDialog() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleImage = (event) => {
+    console.log('We are here!');
+    // console.log(event.target.files[0]);
+    const data = new FormData();
+    if (event.target.files) {
+      data.append('profileImage', event.target.files[0]);
+    }
+    imageUpload(data);
+  };
+
+  const imageUpload = async (file) => {
+    console.log(file);
+    try {
+      await axios
+        .post('http://localhost:5000/api/profile/profile-img-upload', file)
+        .then((res) => {
+          console.log(JSON.stringify(res.data));
+        })
+        .then((resData) => {
+          console.log('Success');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } catch (error) {
+      console.log(error.response);
+    }
   };
 
   return (
@@ -62,7 +92,7 @@ export default function FormDialog() {
             fullWidth
             variant='outlined'
             InputProps={{
-              className: classes.textBox
+              className: classes.textBox,
             }}
           />
           <TextField
@@ -75,7 +105,7 @@ export default function FormDialog() {
             fullWidth
             variant='outlined'
             InputProps={{
-              className: classes.textBox
+              className: classes.textBox,
             }}
           />
           <TextField
@@ -86,7 +116,7 @@ export default function FormDialog() {
             fullWidth
             variant='outlined'
             InputProps={{
-              className: classes.textBox
+              className: classes.textBox,
             }}
           />
           <TextField
@@ -97,10 +127,10 @@ export default function FormDialog() {
             variant='outlined'
             margin='dense'
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
             InputProps={{
-              className: classes.timeBox
+              className: classes.timeBox,
             }}
           />
           <TextField
@@ -111,12 +141,13 @@ export default function FormDialog() {
             defaultValue='2017-05-24T10:30'
             variant='outlined'
             InputLabelProps={{
-              shrink: true
+              shrink: true,
             }}
             InputProps={{
-              className: classes.timeBox
+              className: classes.timeBox,
             }}
           />
+          <TextField type='file' onChange={handleImage} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color='primary'>
