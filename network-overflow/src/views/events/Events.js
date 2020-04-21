@@ -3,7 +3,7 @@ import { Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Card from './../../shared/card-template/card';
-import Navbar from "../dashboard/components/navbar";
+import Navbar from '../dashboard/components/navbar';
 import Create from './../../shared/components/CreateDialog/CreateEventDialog';
 import image1 from './../home/loggo.png';
 import image2 from './../home/imagee.jpg';
@@ -15,7 +15,8 @@ const events = [
     description:
       'We are planning a reunion fo the greatest graduating class to ever grace the halls of PHS.',
     venue: '111 N 6th St, Ponchatoula, LA',
-    image: image1
+    image:
+      'https://network-overflow.s3.amazonaws.com/louis-vuitton-1586290103312.jpg',
   },
   {
     title: 'Quest For Success Training',
@@ -23,7 +24,7 @@ const events = [
     description:
       'QFS is an innovative new high school level career exploration course designed to prepare all LA graduates.',
     venue: '795 S Morrison Blvd, Hammond, LA',
-    image: image1
+    image: image1,
   },
   {
     title: 'Unlimited By Justin Paul Abraham',
@@ -31,7 +32,7 @@ const events = [
     description:
       'Discover unlimited, new creation realities (Kainos) in Christ with Justin Paul Abraham.',
     venue: 'Northshore 3699, Hammond, LA',
-    image: image2
+    image: image2,
   },
   {
     title: 'THE LOUISIANA BAYOU KING FEST',
@@ -39,7 +40,7 @@ const events = [
     description:
       'Enjoy 4 days of non-stop entertainment! Watch 6 World class Elvis Tribute Artist recreate 9 Full Elvis Concerts',
     venue: 'West 23rd Avenue, Hammond, LA',
-    image: image2
+    image: image2,
   },
   {
     title: 'Abbey Youth Festival 2020',
@@ -47,7 +48,7 @@ const events = [
     description:
       'You have a purpose in the world. You may not know your purpose. God does. Let Him illuminate you! Come to Abbey Youth Festival 2020',
     venue: '75376 River Road, Hammond, LA',
-    image: image1
+    image: image1,
   },
   {
     title: 'SELU Red day',
@@ -55,7 +56,7 @@ const events = [
     description:
       'All reed instruments and levels welcome! Featuring Matthew Hess of Saxocentric, Melissa Morales, clarinet with Potomac Winds.',
     venue: '548 Western Avenue, Hammond, LA',
-    image: image2
+    image: image2,
   },
   {
     title: 'HR: Disciplinary Processes',
@@ -63,7 +64,7 @@ const events = [
     description:
       'Come to this workshop with a few ideas about what you need help with, so that you can participate in some role playing.',
     venue: '1514 Martens Drive, Hammond, LA',
-    image: image1
+    image: image1,
   },
   {
     title: 'SELU ACM Hackathon',
@@ -71,7 +72,7 @@ const events = [
     description:
       'The Southeastern Louisiana University ACM Chapter is hosting a 24-hour hackathon at Southeastern Louisiana University.',
     venue: '500 West University Avenue, Hammond, LA',
-    image: image2
+    image: image2,
   },
   {
     title: 'Fall Tones',
@@ -79,7 +80,7 @@ const events = [
     description:
       'In this lesson you will learn all the newest trends for fall 2020 from our expert teachers and helpers.',
     venue: '303 Edin Neil Way, Hammond, LA',
-    image: image1
+    image: image1,
   },
   {
     title: 'Fall Spectrum Deep',
@@ -87,7 +88,7 @@ const events = [
     description:
       'This lesson will explain the unique features and benefits of Full Spectrum Deep and when, why and who to use it on.',
     venue: '303 Edin Neil Way, Hammond, LA',
-    image: image2
+    image: image2,
   },
   {
     title: 'Cowboys Dance ',
@@ -95,7 +96,7 @@ const events = [
     description:
       'Come join us Saturday, April 4,2020 for the Mother/ Son Dance at Ponchatoula Recreation Event Building.',
     venue: '303 Edin Neil Way, Hammond, LA',
-    image: image1
+    image: image1,
   },
   {
     title: 'Coloring All Directions',
@@ -103,28 +104,26 @@ const events = [
     description:
       'In this class you will learn the guidelines of what density, effect, and direction to place your weaves.',
     venue: '19030 Ponchatoula Parks Drive, Ponchatoula LA',
-    image: image2
+    image: image2,
   },
-  
-   
 ];
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   gridContainer: {
     direction: 'row',
     alignItems: 'center',
-    justify: 'flex-start'
+    justify: 'flex-start',
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
   },
   card: {
-    paddingLeft: 10
-  }
+    paddingLeft: 10,
+  },
 }));
 
 const Events = () => {
@@ -136,7 +135,7 @@ const Events = () => {
         <Create />
         <br />
         <Grid container className={useStyles.gridContainer} spacing={2}>
-          {events.map(event => {
+          {events.map((event) => {
             return (
               <Grid item xs={12} sm={6} md={3} lg={3}>
                 <Card event={event} />
