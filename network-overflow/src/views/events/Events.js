@@ -1,24 +1,28 @@
-import React from 'react';
-import { Grid, Paper } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import Card from './../../shared/card-template/card';
-import Navbar from '../dashboard/components/navbar';
-import Create from './../../shared/components/CreateDialog/CreateEventDialog';
+import React from "react";
+import { Grid, Paper } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import Card from "./../../shared/card-template/card";
+import Navbar from "../dashboard/components/navbar";
+import Create from "./../../shared/components/CreateDialog/CreateEventDialog";
+import image1 from "./../home/loggo.png";
+import image2 from "./../home/imagee.jpg";
+import CitySelect from "../dashboard/components/locationSearch";
 import axios from 'axios';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
   },
   gridContainer: {
-    direction: 'row',
-    alignItems: 'center',
-    justify: 'flex-start',
+    direction: "row",
+    alignItems: "center",
+    justify: "flex-start",
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: 'center',
+    textAlign: "center",
     color: theme.palette.text.secondary,
   },
   card: {
@@ -69,8 +73,9 @@ const Events = () => {
   getEvents();
 
   return (
-    <React.Fragment>
+    <div style={{ backgroundColor: "#f2f2f2" }}>
       <Navbar />
+    <CitySelect />
       <Container maxWidth='lg'>
         <h2> Events Around You</h2>
         <Create render={() => getEvents()} />
@@ -86,6 +91,8 @@ const Events = () => {
         </Grid>
       </Container>
     </React.Fragment>
+      
+    </div>
   );
 };
 
