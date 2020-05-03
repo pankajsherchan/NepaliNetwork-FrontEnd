@@ -5,8 +5,6 @@ import Container from "@material-ui/core/Container";
 import Card from "./../../shared/card-template/card";
 import Navbar from "../dashboard/components/navbar";
 import Create from "./../../shared/components/CreateDialog/CreateEventDialog";
-import image1 from "./../home/loggo.png";
-import image2 from "./../home/imagee.jpg";
 import CitySelect from "../dashboard/components/locationSearch";
 import axios from 'axios';
 
@@ -45,7 +43,7 @@ const Events = () => {
       await axios
         .get(`http://localhost:5000/api/events`, config)
         .then((response) => {
-          const imported = response.data.events;
+          const imported =  response.data.events;
           let importedEvent;
           imported.map((e) => {
             importedEvent = {
@@ -90,8 +88,6 @@ const Events = () => {
           })}
         </Grid>
       </Container>
-    </React.Fragment>
-      
     </div>
   );
 };

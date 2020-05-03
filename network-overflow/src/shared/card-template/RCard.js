@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-//import image1 from '../../views/home/event.jpg';
 
 const useStyles = makeStyles({
   root: {
@@ -28,6 +27,8 @@ export default function MediaCard(props) {
           className={classes.media}
           image={props.roommate.image}
           title={props.roommate.title}
+          square
+          imageUrl={props.roommate.image}
         />
         <CardContent>
           <Typography

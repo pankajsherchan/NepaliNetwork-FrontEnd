@@ -5,96 +5,9 @@ import Container from "@material-ui/core/Container";
 import Card from "../../shared/card-template/RCard";
 import Navbar from "../dashboard/components/navbar";
 import Create from "./../../shared/components/CreateDialog/CreateRoommateDialog";
-import image1 from "./../home/room.jpg";
-import image2 from "./../home/list1.jpg";
-import image3 from "./../home/list2.jpg";
 import CitySelect from "../dashboard/components/locationSearch";
-const roommates = [
-  {
-    title: "Double Bed Room",
-    location: "111 N 6th St, Ponchatoula, LA",
-    description:
-      "I am looking for a roommate in a nice double bed room with separate restrooms and laundry facility available.",
-    image: image1,
-  },
-  {
-    title: "Single Bed Apartment",
-    location: "795 S Morrison Blvd, Hammond, LA",
-    description:
-      "I am looking to rent out my studio apartment in a wonderful location but no pets are allowed",
-    image: image3,
-  },
-  {
-    title: "Triple Bed Apartment",
-    location: "795 S Morrison Blvd, Hammond, LA",
-    description:
-      "We are students at southeastern currently staying in a wonderful 3 bedroom apartment.",
-    image: image2,
-  },
-  {
-    title: "Single Bed Apartment",
-    location: "795 S Morrison Blvd, Hammond, LA",
-    description:
-      "I am looking to rent out my studio apartment in a wonderful location but no pets are allowed",
-    image: image3,
-  },
-  {
-    title: "Double Bed Room",
-    location: "111 N 6th St, Ponchatoula, LA",
-    description:
-      "I am looking for a roommate in a nice double bed room with separate restrooms and laundry facility available.",
-    image: image2,
-  },
-  {
-    title: "Single Bed Apartment",
-    location: "795 S Morrison Blvd, Hammond, LA",
-    description:
-      "I am looking to rent out my studio apartment in a wonderful location but no pets are allowed",
-    image: image1,
-  },
-  {
-    title: "Studio Apartment",
-    location: "795 S Morrison Blvd, Hammond, LA",
-    description:
-      "I am looking to rent out my studio apartment in a wonderful location but no pets are allowed",
-    image: image3,
-  },
-  {
-    title: "Suite",
-    location: "795 S Morrison Blvd, Hammond, LA",
-    description:
-      "We are students at southeastern currently staying in a wonderful 3 bedroom apartment.",
-    image: image2,
-  },
-  {
-    title: "Two Floored Two Bedroom Apartment",
-    location: "795 S Morrison Blvd, Hammond, LA",
-    description:
-      "We are students at southeastern currently staying in a wonderful 3 bedroom apartment.",
-    image: image1,
-  },
-  {
-    title: "Three Bedroom Hall Kitchen Apartment",
-    location: "795 S Morrison Blvd, Hammond, LA",
-    description:
-      "We are students at southeastern currently staying in a wonderful 3 bedroom apartment.",
-    image: image3,
-  },
-  {
-    title: "Single Bed Studio Apartment",
-    location: "795 S Morrison Blvd, Hammond, LA",
-    description:
-      "I am looking to rent out my studio apartment in a wonderful location but no pets are allowed",
-    image: image1,
-  },
-  {
-    title: "Double Bed Room Apartment",
-    location: "111 N 6th St, Ponchatoula, LA",
-    description:
-      "I am looking for a roommate in a nice double bed room with separate restrooms and laundry facility available.",
-    image: image2,
-  },
-];
+import axios from 'axios';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -115,18 +28,63 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Roommates = () => {
+  const [value, setValue] = React.useState({ list: [] });
+
+  const getRoommates = async () => {
+    let importedRooms = [];
+    try {
+      const config = {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      };
+      await axios
+        .get(`http://localhost:5000/api/roommates`, config)
+        .then((response) => {
+          const imported = response.data.rommmates;
+          let importedRoom;
+         // console.log(imported);
+          imported.map((r) => {
+            importedRoom = {
+              title: r.listingType,
+              location: r.listingAddress,
+              description: r.summary,
+              email: r.email,
+              image: r.image,
+              phone: r.phoneNumber,              
+            };
+          //  console.log(importedRoom);
+            importedRooms.push(importedRoom);
+          });
+        //  console.log(importedRooms);
+          if (importedRooms.length > value.list.length) {
+            setValue({ list: [...importedRooms] });
+            importedRooms = [];
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        console.log(value.list);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  getRoommates();
+
   return (
     <div style={{ backgroundColor: "#f2f2f2" }}>
       <Navbar />
       <div>
         <CitySelect />
-
         <Container maxWidth="lg">
           <h2> Room Listings Around You</h2>
-          <Create />
+          <Create render={() => getRoommates()}/>
           <br />
           <Grid container className={useStyles.gridContainer} spacing={2}>
-            {roommates.map((roommate) => {
+            {value.list.map((roommate) => {
               return (
                 <Grid item xs={12} sm={6} md={3} lg={3}>
                   <Card roommate={roommate} />
