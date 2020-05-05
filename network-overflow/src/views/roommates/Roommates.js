@@ -1,11 +1,11 @@
-import React from "react";
-import { Grid, Paper } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Card from "../../shared/card-template/RCard";
-import Navbar from "../dashboard/components/navbar";
-import Create from "./../../shared/components/CreateDialog/CreateRoommateDialog";
-import CitySelect from "../dashboard/components/locationSearch";
+import React from 'react';
+import { Grid, Paper } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+import Card from '../../shared/card-template/RCard';
+import Navbar from '../dashboard/components/navbar';
+import Create from './../../shared/components/CreateDialog/CreateRoommateDialog';
+import CitySelect from '../dashboard/components/locationSearch';
 import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
@@ -13,13 +13,13 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   gridContainer: {
-    direction: "row",
-    alignItems: "center",
-    justify: "flex-start",
+    direction: 'row',
+    alignItems: 'center',
+    justify: 'flex-start',
   },
   paper: {
     padding: theme.spacing(2),
-    textAlign: "center",
+    textAlign: 'center',
     color: theme.palette.text.secondary,
   },
   card: {
@@ -44,20 +44,22 @@ const Roommates = () => {
         .then((response) => {
           const imported = response.data.rommmates;
           let importedRoom;
-         // console.log(imported);
+          // console.log(imported);
           imported.map((r) => {
             importedRoom = {
-              title: r.listingType,
-              location: r.listingAddress,
-              description: r.summary,
-              email: r.email,
+              listingType: r.listingType,
+              address: r.addressId,
+              description: r.description,
+              user: r.userId,
               image: r.image,
-              phone: r.phoneNumber,              
+              contactNumber: r.contactNumber,
+              petsAllowed: r.petsAllowed,
+              datePosted: r.datePosted,
             };
-          //  console.log(importedRoom);
+            //  console.log(importedRoom);
             importedRooms.push(importedRoom);
           });
-        //  console.log(importedRooms);
+          //  console.log(importedRooms);
           if (importedRooms.length > value.list.length) {
             setValue({ list: [...importedRooms] });
             importedRooms = [];
@@ -66,7 +68,6 @@ const Roommates = () => {
         .catch((err) => {
           console.log(err);
         });
-        console.log(value.list);
     } catch (error) {
       console.log(error.response);
     }
@@ -75,13 +76,13 @@ const Roommates = () => {
   getRoommates();
 
   return (
-    <div style={{ backgroundColor: "#f2f2f2" }}>
+    <div style={{ backgroundColor: '#f2f2f2' }}>
       <Navbar />
       <div>
         <CitySelect />
-        <Container maxWidth="lg">
+        <Container maxWidth='lg'>
           <h2> Room Listings Around You</h2>
-          <Create render={() => getRoommates()}/>
+          <Create render={() => getRoommates()} />
           <br />
           <Grid container className={useStyles.gridContainer} spacing={2}>
             {value.list.map((roommate) => {

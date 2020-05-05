@@ -11,6 +11,9 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import defaultImage from '../../../views/home/imagee.jpg';
 import SimpleDialog from '../dialog/SimpleDialog';
+import CitySelect from '../../../views/dashboard/components/locationSearch';
+import jwt_decoded from 'jwt-decode';
+import FormControl from '@material-ui/core/FormControl';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,6 +46,18 @@ export default function FormDialog(props) {
   const [dialogTitle, setDialogTitle] = React.useState('');
   const [open, setOpen] = React.useState(false);
   const [image, setImage] = React.useState({ location: '' });
+  const [user, setUser] = React.useState({
+    email: '',
+    id: '',
+    firstName: '',
+    lastName: '',
+  });
+  const [address, setAddress] = React.useState({
+    street: '',
+    city: '',
+    state: '',
+    zip: '',
+  });
 
   const validate = (values) => {
     const errors = {};
@@ -50,19 +65,9 @@ export default function FormDialog(props) {
     if (!values.eventName) {
       errors.eventName = 'Required';
     }
-    // else if (
-    //   !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-    // ) {
-    //   errors.email = 'Invalid email address';
-    // }
-
-    if (!values.eventVenue) {
-      errors.eventVenue = 'Required';
+    if (!values.eventSummary) {
+      errors.eventSummary = 'Required';
     }
-    // } else if (values.eventVenue.length < 3) {
-    //   errors.eventVenue = 'Password must be at least 6 character long';
-    // }
-
     return errors;
   };
 
@@ -70,9 +75,8 @@ export default function FormDialog(props) {
     initialValues: {
       eventName: '',
       eventSummary: '',
-      eventVenue: '',
-      eventStartDate: '2017-05-24T10:30',
-      eventEndDate: '2017-05-24T10:30',
+      eventStartDate: Date.now(),
+      eventEndDate: Date.now(),
       eventImage: '',
     },
     validate,
@@ -80,6 +84,12 @@ export default function FormDialog(props) {
       createEvent(event);
     },
   });
+
+  // const printEvent = async (event) => {
+  //   await getUser();
+  //   await createAddress();
+  //   await createEvent(event);
+  // };
 
   const hideDialogBox = (title) => {
     setShowDialog(false);
@@ -111,10 +121,42 @@ export default function FormDialog(props) {
     imageUpload(data);
   };
 
+  const handleStreetAddress = (event) => {
+    const street = event.target.value;
+    setAddress((prevState) => {
+      return {
+        ...prevState,
+        street: street,
+      };
+    });
+  };
+
+  const handleCity = async (value) => {
+    await setAddress((prevState) => {
+      return {
+        ...prevState,
+        city: value.city,
+        state: value.state,
+      };
+    });
+  };
+
   const createEvent = async (data) => {
+    try {
+      await getUser();
+    } catch (error) {
+      console.log('Could not find logged in user', error);
+    }
+    try {
+      await createAddress();
+    } catch (error) {
+      console.log('Something went wrong!', error);
+    }
     data = {
       ...data,
       eventImage: image.location !== '' ? image.location : defaultImage,
+      eventCreator: _uid,
+      eventVenue: _aid,
     };
     try {
       const config = {
@@ -132,6 +174,66 @@ export default function FormDialog(props) {
         .catch((err) => {
           console.log(err);
           return showDialogBox('Warning', 'Something went wrong!');
+        });
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+  let _uid;
+  const getUser = async () => {
+    const token = localStorage.getItem('token');
+    if (token !== null) {
+      const decoded = jwt_decoded(token);
+
+      const data = decoded.email;
+
+      try {
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        await axios
+          .get(`http://localhost:5000/api/users/${data}`, config)
+          .then((res) => {
+            const user = res.data.user;
+            setUser({
+              email: user.email,
+              id: user._id,
+              firstName: user.firstName,
+              lastName: user.lastName,
+            });
+            _uid = user._id;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.log(error.response);
+      }
+    }
+  };
+
+  let _aid;
+  const createAddress = async () => {
+    const data = address;
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      await axios
+        .post(`http://localhost:5000/api/addresses`, data, config)
+        .then((res) => {
+          const id = res.data.address.id;
+          setAddress((prevState) => {
+            return {
+              ...prevState,
+              addressId: id,
+            };
+          });
+          _aid = id;
         });
     } catch (error) {
       console.log(error.response);
@@ -212,32 +314,38 @@ export default function FormDialog(props) {
               }}
               onChange={formik.handleChange}
             />
-            <TextField
-              required
-              margin='dense'
-              id='venue'
-              label='Venue'
-              name='eventVenue'
-              type='text'
-              fullWidth
-              variant='outlined'
-              InputProps={{
-                className: classes.textBox,
-              }}
-              onChange={formik.handleChange}
-            />
-            {formik.errors.eventVenue ? (
+            {formik.errors.eventSummary ? (
               <div className={classes.multilineColor}>
-                {formik.errors.eventVenue}
+                {formik.errors.eventSummary}
               </div>
             ) : null}
+
+            <FormControl variant='outlined'>
+              <TextField
+                margin='dense'
+                id='street'
+                label='Street Address'
+                name='street'
+                type='text'
+                fullWidth
+                variant='outlined'
+                InputProps={{
+                  className: classes.textBox,
+                }}
+                onChange={handleStreetAddress}
+              />
+              <div style={{ alignSelf: 'center' }}>
+                <CitySelect setAddress={(address) => handleCity(address)} />
+              </div>
+            </FormControl>
+
             <TextField
               required
               id='datetime-start'
               label='Start Date-Time'
               name='eventStartDate'
               type='datetime-local'
-              defaultValue='2017-05-24T10:30'
+              defaultValue={new Date().toISOString().slice(0, -1)}
               variant='outlined'
               margin='dense'
               InputLabelProps={{
@@ -255,7 +363,7 @@ export default function FormDialog(props) {
               label='End Date'
               name='eventEndDate'
               type='datetime-local'
-              defaultValue='2017-05-24T10:30'
+              defaultValue={new Date().toISOString().slice(0, -1)}
               variant='outlined'
               InputLabelProps={{
                 shrink: true,
