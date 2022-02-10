@@ -16,7 +16,7 @@
     "formik": "^2.1.4",
     "jwt-decode": "^2.2.0",
     "material-auto-rotating-carousel": "^3.0.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "react": "^16.13.1",
     "react-awesome-slider": "^4.1.0",
     "react-bootstrap": "^1.0.0",
